@@ -991,7 +991,7 @@ void ContinuationIndenter::moveStatePastScopeOpener(LineState &State,
   if (Current.isOneOf(tok::l_brace, TT_ArrayInitializerLSquare)) {
     if (Current.opensBlockOrBlockTypeList(Style)) {
       NewIndent = State.Stack.back().NestedBlockIndent + Style.IndentWidth;
-      NewIndent = std::min(State.Column + 2, NewIndent);
+      NewIndent = std::min(State.Column + Style.IndentWidth, NewIndent);
     } else {
       NewIndent = State.Stack.back().LastSpace + Style.ContinuationIndentWidth;
     }

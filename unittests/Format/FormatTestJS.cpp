@@ -287,6 +287,31 @@ TEST_F(FormatTestJS, ContainerLiterals) {
                "};");
 }
 
+TEST_F(FormatTestJS, ContainerLiteralsIndentWidth) {
+  FormatStyle Style = getGoogleStyle(FormatStyle::LK_JavaScript);
+  Style.IndentWidth = 4;
+
+  verifyFormat("return [\n"
+               "    {\n"
+               "        a: 1,\n"
+               "    },\n"
+               "    {\n"
+               "        b: 2,\n"
+               "    },\n"
+               "];",
+               Style);
+  verifyFormat("return {\n"
+               "    nested: {\n"
+               "        values: {\n"
+               "            indent: [\n"
+               "                right,\n"
+               "            ],\n"
+               "        },\n"
+               "    },\n"
+               "};",
+               Style);
+}
+
 TEST_F(FormatTestJS, MethodsInObjectLiterals) {
   verifyFormat("var o = {\n"
                "  value: 'test',\n"
